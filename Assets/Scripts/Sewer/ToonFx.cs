@@ -156,7 +156,7 @@ namespace Sewer
             if (on == ToonOn && !announce) return;
             ToonOn = on;
             foreach (var (r, orig, mats) in swapped) if (r) r.sharedMaterials = on ? mats : orig;
-            if (announce) Hud.Message(on ? "Мультяшные шейдеры: ВКЛ" : "Мультяшные шейдеры: ВЫКЛ");
+            if (announce) Hud.Message(on ? "Cartoon shaders: ON" : "Cartoon shaders: OFF");
         }
 
         public void SetPost(bool on) { if (volume) volume.enabled = on; }

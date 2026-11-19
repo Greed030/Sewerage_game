@@ -129,7 +129,7 @@ namespace Sewer
                                         (kb.wKey.isPressed ? 1 : 0) - (kb.sKey.isPressed ? 1 : 0));
                 var gp = Gamepad.current;
                 if (gp != null && gp.leftStick.ReadValue().sqrMagnitude > 0.04f) m = gp.leftStick.ReadValue();
-                if (kb.f7Key.wasPressedThisFrame) { autoRun = !autoRun; Hud.Message(autoRun ? "Авто-бег (F7)" : "Авто-бег выкл"); }
+                if (kb.f7Key.wasPressedThisFrame) { autoRun = !autoRun; Hud.Message(autoRun ? "Auto-run (F7)" : "Auto-run off"); }
                 if (autoRun && m.sqrMagnitude < 0.01f) m = Vector2.up;   // debug: keep running to inspect the run cycle
                 if (kb.f8Key.wasPressedThisFrame) DebugJump();
                 if (kb.f9Key.wasPressedThisFrame) DebugDoor();
@@ -198,7 +198,7 @@ namespace Sewer
                 {
                     checkpointLevel = lvl;
                     checkpoint = transform.position;
-                    Hud.Message(lvl < 3 ? $"Кольцо {lvl + 1}. Контрольная точка" : "Зал Короны!");
+                    Hud.Message(lvl < 3 ? $"Ring {lvl + 1}. Checkpoint" : "Crown Hall!");
                 }
             }
             if (transform.position.y < -110) Teleport(checkpoint);
@@ -320,7 +320,7 @@ namespace Sewer
                     break;
                 case Ability.Invisibility:
                     invisUntil = Time.time + 5f;
-                    Hud.Message("Ты невидим!");
+                    Hud.Message("You are invisible!");
                     Anim?.AbilityPose(Ability.Invisibility, 0.7f);
                     Fx.Burst(transform.position + Vector3.up * 1f, Mat.Hex("#B46BFF"), 26, 2.5f, 1.1f, 0.9f, -0.2f, "fx_soft", false, Mat.Hex("#3B3A4A"), 0.6f);
                     break;
@@ -370,22 +370,22 @@ namespace Sewer
             {
                 case RewardType.MaxHealth:
                     Hp.ResetHealth(Hp.Max + 30);
-                    Hud.Message("Награда: +30 к здоровью и полное лечение");
+                    Hud.Message("Reward: +30 max health and full heal");
                     break;
                 case RewardType.AbilityBoost:
                     cooldownMul *= 0.6f; AbilityReadyAt = 0;
-                    Hud.Message($"Награда: «{Def.AbilityName}» перезаряжается быстрее");
+                    Hud.Message($"Reward: \"{Def.AbilityName}\" recharges faster");
                     break;
                 case RewardType.SpeedBoost:
                     speedMul *= 1.15f; Hp.Heal(40);
-                    Hud.Message("Награда: +15% к скорости и лечение");
+                    Hud.Message("Reward: +15% speed and a heal");
                     break;
             }
         }
 
         void OnDied()
         {
-            Hud.Message("Тебя съели... возрождение");
+            Hud.Message("You got eaten... respawning");
             Anim?.SetDead(true);
             StartCoroutine(RespawnRoutine());
         }
@@ -413,7 +413,7 @@ namespace Sewer
                 Teleport(Geo.Polar(b.Angle, bd.R + b.Side * 2.6f, bd.Y));
                 transform.rotation = Quaternion.LookRotation(Geo.Out(b.Angle) * b.Side);
                 if (cam0) cam0.Snap(transform.eulerAngles.y);
-                Hud.Message($"F8: дыра в стене (кольцо {b.Ring + 1})");
+                Hud.Message($"F8: wall breach (ring {b.Ring + 1})");
                 return;
             }
             var f = fs[debugFeature];
@@ -426,7 +426,7 @@ namespace Sewer
             transform.rotation = Quaternion.LookRotation(tan);
             var cam = FindFirstObjectByType<ThirdPersonCamera>();
             if (cam) cam.Snap(transform.eulerAngles.y);
-            Hud.Message($"F8: {f.kind} (кольцо {f.ring + 1})");
+            Hud.Message($"F8: {f.kind} (ring {f.ring + 1})");
         }
 
         // ------------------------------------------------------------ climbing
@@ -510,7 +510,7 @@ namespace Sewer
             transform.rotation = Quaternion.LookRotation(look);
             var cam = FindFirstObjectByType<ThirdPersonCamera>();
             if (cam) cam.Snap(transform.eulerAngles.y);
-            Hud.Message($"F9: {(side < 0 ? "дверь комнаты" : "проход сверху")} (кольцо {ring + 1})");
+            Hud.Message($"F9: {(side < 0 ? "room door" : "passage from above")} (ring {ring + 1})");
         }
 
         void Teleport(Vector3 p)

@@ -69,7 +69,7 @@ namespace Sewer
             UiKit.Img(batRoot, "icon_bat", new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(92, 92));
             UiKit.Img(batRoot, "ring", new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(138, 138));
             var lmb = UiKit.Img(batRoot, "btn_normal", new Vector2(1, 1), new Vector2(4, -2), new Vector2(78, 40), 64, null, new Vector2(1, 1));
-            UiKit.Txt(lmb.transform, "ЛКМ", 20, Color.white, TextAnchor.MiddleCenter, new Vector2(0.5f, 0.5f), new Vector2(0, 2), new Vector2(80, 40));
+            UiKit.Txt(lmb.transform, "LMB", 20, Color.white, TextAnchor.MiddleCenter, new Vector2(0.5f, 0.5f), new Vector2(0, 2), new Vector2(80, 40));
 
             // ---- top-right: ring badge, timer, objective
             var badge = UiKit.Img(root, "btn_normal", new Vector2(1, 1), new Vector2(-24, -24), new Vector2(320, 80), 64, null, new Vector2(1, 1));
@@ -94,7 +94,7 @@ namespace Sewer
             msgRoot = msgBg.rectTransform;
             msgTxt = UiKit.Txt(msgBg.transform, "", 34, Color.white, TextAnchor.MiddleCenter, new Vector2(0.5f, 0.5f), new Vector2(0, 2), new Vector2(920, 100), false);
 
-            UiKit.Txt(root, "Esc — пауза", 22, new Color(1, 1, 1, 0.6f), TextAnchor.LowerRight, new Vector2(1, 0), new Vector2(-24, 18), new Vector2(400, 40), false, true, new Vector2(1, 0));
+            UiKit.Txt(root, "Esc — pause", 22, new Color(1, 1, 1, 0.6f), TextAnchor.LowerRight, new Vector2(1, 0), new Vector2(-24, 18), new Vector2(400, 40), false, true, new Vector2(1, 0));
         }
 
         void Update()
@@ -123,7 +123,7 @@ namespace Sewer
 
             // ring / time / objective
             int lvl = LevelBuilder.LevelOf(p.transform.position.y);
-            ringTxt.text = lvl < 3 ? $"КОЛЬЦО {lvl + 1}/3" : "ЗАЛ КОРОНЫ";
+            ringTxt.text = lvl < 3 ? $"RING {lvl + 1}/3" : "CROWN HALL";
             float t = game.Finished ? game.FinishTime : (game.Started ? now - game.StartTime : 0);
             timeTxt.text = $"{Mathf.FloorToInt(t / 60)}:{Mathf.FloorToInt(t % 60):00}";
             string goal = Objective(p, lvl, out Vector3 goalPos);
@@ -133,7 +133,7 @@ namespace Sewer
                 Vector3 camF = Vector3.ProjectOnPlane(p.Cam.forward, Vector3.up).normalized;
                 float ang = Vector3.SignedAngle(camF, to, Vector3.up);
                 compass.rectTransform.localRotation = Quaternion.Euler(0, 0, -ang);
-                goalTxt.text = $"{goal}\n<color=#3EF4FF>{to.magnitude:0} м</color>";
+                goalTxt.text = $"{goal}\n<color=#3EF4FF>{to.magnitude:0} m</color>";
             }
 
             // boss
@@ -169,7 +169,7 @@ namespace Sewer
         {
             pos = Vector3.zero;
             var game = SewerGame.Instance;
-            if (lvl >= 3) { pos = game.Level.CrownPos; return "Корона"; }
+            if (lvl >= 3) { pos = game.Level.CrownPos; return "Crown"; }
             float best = float.MaxValue; string res = null;
             foreach (var r in game.Level.Rooms)
             {
@@ -178,7 +178,7 @@ namespace Sewer
                 if (d < best)
                 {
                     best = d; pos = r.Center;
-                    res = r.Gate != null && r.Gate.IsOpen ? "Открытый люк — прыгай!" : "Комната стража (люк вниз)";
+                    res = r.Gate != null && r.Gate.IsOpen ? "Open hatch — jump in!" : "Guard room (hatch down)";
                 }
             }
             return res;

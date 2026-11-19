@@ -84,47 +84,47 @@ namespace Sewer
             menuRoot = UiKit.Stretch(root, "Menu");
             var logo = UiKit.Img(menuRoot, "logo", new Vector2(0.5f, 1), new Vector2(0, -30), new Vector2(1000, 438), 0, null, new Vector2(0.5f, 1));
             logo.gameObject.AddComponent<UiBob>().Spin = 2f;
-            UiKit.Txt(menuRoot, "спустись на дно — забери корону", 34, UiKit.Cyan, TextAnchor.MiddleCenter, new Vector2(0.5f, 1), new Vector2(0, -470), new Vector2(1200, 50), false);
+            UiKit.Txt(menuRoot, "get to the bottom — grab the crown", 34, UiKit.Cyan, TextAnchor.MiddleCenter, new Vector2(0.5f, 1), new Vector2(0, -470), new Vector2(1200, 50), false);
             float y = -525;
-            UiKit.Btn(menuRoot, "ИГРАТЬ", "play", new Vector2(0.5f, 1), new Vector2(0, y), new Vector2(560, 120), StartIntro, "btn_primary");
-            UiKit.Btn(menuRoot, "НАСТРОЙКИ", "gear", new Vector2(0.5f, 1), new Vector2(0, y - 128), new Vector2(560, 104), () => OpenSettings(false));
-            UiKit.Btn(menuRoot, "УПРАВЛЕНИЕ", "mouse", new Vector2(0.5f, 1), new Vector2(0, y - 246), new Vector2(560, 104), () => OpenControls());
-            UiKit.Btn(menuRoot, "ВЫХОД", "exit", new Vector2(0.5f, 1), new Vector2(0, y - 364), new Vector2(560, 104), Quit);
+            UiKit.Btn(menuRoot, "PLAY", "play", new Vector2(0.5f, 1), new Vector2(0, y), new Vector2(560, 120), StartIntro, "btn_primary");
+            UiKit.Btn(menuRoot, "SETTINGS", "gear", new Vector2(0.5f, 1), new Vector2(0, y - 128), new Vector2(560, 104), () => OpenSettings(false));
+            UiKit.Btn(menuRoot, "CONTROLS", "mouse", new Vector2(0.5f, 1), new Vector2(0, y - 246), new Vector2(560, 104), () => OpenControls());
+            UiKit.Btn(menuRoot, "QUIT", "exit", new Vector2(0.5f, 1), new Vector2(0, y - 364), new Vector2(560, 104), Quit);
             UiKit.Txt(menuRoot, "UKF • Y2K SEWER EDITION • 2026", 22, new Color(1, 1, 1, 0.55f), TextAnchor.LowerCenter, new Vector2(0.5f, 0), new Vector2(0, 18), new Vector2(900, 40), true, true, new Vector2(0.5f, 0));
 
             // ---- pause
             pauseRoot = UiKit.Stretch(root, "Pause");
             var pp = UiKit.Img(pauseRoot, "panel", new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(720, 840), 72);
-            Header(pp.transform, "icon_pause", "ПАУЗА", 640);
+            Header(pp.transform, "icon_pause", "PAUSED", 640);
             float py = -200;
-            UiKit.Btn(pp.transform, "ПРОДОЛЖИТЬ", "play", new Vector2(0.5f, 1), new Vector2(0, py), new Vector2(560, 104), Resume, "btn_primary");
-            UiKit.Btn(pp.transform, "НАСТРОЙКИ", "gear", new Vector2(0.5f, 1), new Vector2(0, py - 120), new Vector2(560, 100), () => OpenSettings(true));
-            UiKit.Btn(pp.transform, "ЗАНОВО", "restart", new Vector2(0.5f, 1), new Vector2(0, py - 236), new Vector2(560, 100), Restart);
-            UiKit.Btn(pp.transform, "В МЕНЮ", "home", new Vector2(0.5f, 1), new Vector2(0, py - 352), new Vector2(560, 100), ToMenu);
-            UiKit.Btn(pp.transform, "ВЫХОД", "exit", new Vector2(0.5f, 1), new Vector2(0, py - 468), new Vector2(560, 100), Quit);
+            UiKit.Btn(pp.transform, "RESUME", "play", new Vector2(0.5f, 1), new Vector2(0, py), new Vector2(560, 104), Resume, "btn_primary");
+            UiKit.Btn(pp.transform, "SETTINGS", "gear", new Vector2(0.5f, 1), new Vector2(0, py - 120), new Vector2(560, 100), () => OpenSettings(true));
+            UiKit.Btn(pp.transform, "RESTART", "restart", new Vector2(0.5f, 1), new Vector2(0, py - 236), new Vector2(560, 100), Restart);
+            UiKit.Btn(pp.transform, "MAIN MENU", "home", new Vector2(0.5f, 1), new Vector2(0, py - 352), new Vector2(560, 100), ToMenu);
+            UiKit.Btn(pp.transform, "QUIT", "exit", new Vector2(0.5f, 1), new Vector2(0, py - 468), new Vector2(560, 100), Quit);
 
             // ---- settings
             settingsRoot = UiKit.Stretch(root, "Settings");
             var sp = UiKit.Img(settingsRoot, "panel", new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1000, 1000), 72);
-            Header(sp.transform, "icon_gear", "НАСТРОЙКИ", 900);
+            Header(sp.transform, "icon_gear", "SETTINGS", 900);
             float sy = -185, sw = 800;
-            UiKit.Sld(sp.transform, "Чувствительность мыши", new Vector2(0.5f, 1), new Vector2(0, sy), sw, 0.03f, 0.35f, Sensitivity, v => { Sensitivity = v; ApplySettings(); }, v => (v / 0.12f).ToString("0.0") + "x");
-            UiKit.Sld(sp.transform, "Громкость", new Vector2(0.5f, 1), new Vector2(0, sy - 120), sw, 0, 1, Volume, v => { Volume = v; ApplySettings(); }, v => Mathf.RoundToInt(v * 100) + "%");
-            UiKit.Sld(sp.transform, "Дальность прорисовки (FPS)", new Vector2(0.5f, 1), new Vector2(0, sy - 240), sw, 30, 110, DrawDistance, v => { DrawDistance = v; ApplySettings(); }, v => Mathf.RoundToInt(v) + " м");
-            UiKit.Tgl(sp.transform, "Мультяшные шейдеры", new Vector2(0.5f, 1), new Vector2(0, sy - 360), sw, ToonOn, v => { ToonOn = v; ApplySettings(); });
-            UiKit.Tgl(sp.transform, "Свечение и постэффекты", new Vector2(0.5f, 1), new Vector2(0, sy - 435), sw, PostOn, v => { PostOn = v; ApplySettings(); });
-            UiKit.Tgl(sp.transform, "Вертикальная синхронизация", new Vector2(0.5f, 1), new Vector2(0, sy - 510), sw, VSync, v => { VSync = v; ApplySettings(); });
-            UiKit.Tgl(sp.transform, "Показывать FPS (F1)", new Vector2(0.5f, 1), new Vector2(0, sy - 585), sw, Perf.Instance && Perf.Instance.ShowFps, v => { if (Perf.Instance) { Perf.Instance.ShowFps = v; PlayerPrefs.SetInt("sewer_fps", v ? 1 : 0); } });
-            UiKit.Btn(sp.transform, "НАЗАД", "home", new Vector2(0.5f, 0), new Vector2(0, 50), new Vector2(460, 104), CloseSubmenu, "btn_normal");
+            UiKit.Sld(sp.transform, "Mouse sensitivity", new Vector2(0.5f, 1), new Vector2(0, sy), sw, 0.03f, 0.35f, Sensitivity, v => { Sensitivity = v; ApplySettings(); }, v => (v / 0.12f).ToString("0.0") + "x");
+            UiKit.Sld(sp.transform, "Volume", new Vector2(0.5f, 1), new Vector2(0, sy - 120), sw, 0, 1, Volume, v => { Volume = v; ApplySettings(); }, v => Mathf.RoundToInt(v * 100) + "%");
+            UiKit.Sld(sp.transform, "Draw distance (FPS)", new Vector2(0.5f, 1), new Vector2(0, sy - 240), sw, 30, 110, DrawDistance, v => { DrawDistance = v; ApplySettings(); }, v => Mathf.RoundToInt(v) + " m");
+            UiKit.Tgl(sp.transform, "Cartoon shaders", new Vector2(0.5f, 1), new Vector2(0, sy - 360), sw, ToonOn, v => { ToonOn = v; ApplySettings(); });
+            UiKit.Tgl(sp.transform, "Glow & post effects", new Vector2(0.5f, 1), new Vector2(0, sy - 435), sw, PostOn, v => { PostOn = v; ApplySettings(); });
+            UiKit.Tgl(sp.transform, "V-Sync", new Vector2(0.5f, 1), new Vector2(0, sy - 510), sw, VSync, v => { VSync = v; ApplySettings(); });
+            UiKit.Tgl(sp.transform, "Show FPS (F1)", new Vector2(0.5f, 1), new Vector2(0, sy - 585), sw, Perf.Instance && Perf.Instance.ShowFps, v => { if (Perf.Instance) { Perf.Instance.ShowFps = v; PlayerPrefs.SetInt("sewer_fps", v ? 1 : 0); } });
+            UiKit.Btn(sp.transform, "BACK", "home", new Vector2(0.5f, 0), new Vector2(0, 50), new Vector2(460, 104), CloseSubmenu, "btn_normal");
 
             // ---- controls
             controlsRoot = UiKit.Stretch(root, "Controls");
             var cp = UiKit.Img(controlsRoot, "panel", new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1000, 940), 72);
-            Header(cp.transform, "icon_mouse", "УПРАВЛЕНИЕ", 900);
+            Header(cp.transform, "icon_mouse", "CONTROLS", 900);
             string[,] keys =
             {
-                { "W A S D", "ходьба" }, { "SHIFT", "бег" }, { "ПРОБЕЛ", "прыжок" }, { "ЛКМ", "удар битой (3 удара — комбо)" },
-                { "E / ПКМ", "способность персонажа" }, { "МЫШЬ / СТРЕЛКИ", "камера" }, { "КОЛЕСО", "приблизить камеру" }, { "ESC", "пауза" },
+                { "W A S D", "move" }, { "SHIFT", "sprint" }, { "SPACE", "jump / climb" }, { "LMB", "bat attack (3 hits = combo)" },
+                { "E / RMB", "character ability" }, { "MOUSE / ARROWS", "camera" }, { "WHEEL", "camera zoom" }, { "ESC", "pause" },
             };
             for (int i = 0; i < keys.GetLength(0); i++)
             {
@@ -133,12 +133,12 @@ namespace Sewer
                 UiKit.Txt(kb.transform, keys[i, 0], 26, Color.white, TextAnchor.MiddleCenter, new Vector2(0.5f, 0.5f), new Vector2(0, 2), new Vector2(290, 60));
                 UiKit.Txt(cp.transform, keys[i, 1], 30, Color.white, TextAnchor.MiddleLeft, new Vector2(0.5f, 1), new Vector2(240, ky), new Vector2(500, 64), false);
             }
-            UiKit.Btn(cp.transform, "НАЗАД", "home", new Vector2(0.5f, 0), new Vector2(0, 50), new Vector2(460, 104), CloseSubmenu, "btn_normal");
+            UiKit.Btn(cp.transform, "BACK", "home", new Vector2(0.5f, 0), new Vector2(0, 50), new Vector2(460, 104), CloseSubmenu, "btn_normal");
 
             // ---- character roulette intro
             introRoot = UiKit.Stretch(root, "Intro");
             var ip = UiKit.Img(introRoot, "panel", new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(900, 640), 72);
-            UiKit.Txt(ip.transform, "ТЕБЕ ВЫПАЛ...", 40, UiKit.Cyan, TextAnchor.MiddleCenter, new Vector2(0.5f, 1), new Vector2(0, -70), new Vector2(800, 60));
+            UiKit.Txt(ip.transform, "YOU GOT...", 40, UiKit.Cyan, TextAnchor.MiddleCenter, new Vector2(0.5f, 1), new Vector2(0, -70), new Vector2(800, 60));
             introIcon = UiKit.Img(ip.transform, "icon_dash", new Vector2(0.5f, 0.5f), new Vector2(0, 75), new Vector2(180, 180));
             introIcon.gameObject.AddComponent<UiBob>().Amp = 6;
             introName = UiKit.Txt(ip.transform, "", 80, Color.white, TextAnchor.MiddleCenter, new Vector2(0.5f, 0.5f), new Vector2(0, -90), new Vector2(820, 100));
@@ -149,10 +149,10 @@ namespace Sewer
             winRoot = UiKit.Stretch(root, "Win");
             var wp = UiKit.Img(winRoot, "panel", new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(900, 820), 72);
             UiKit.Img(wp.transform, "icon_crown", new Vector2(0.5f, 1), new Vector2(0, -140), new Vector2(190, 190), 0, null, new Vector2(0.5f, 0.5f)).gameObject.AddComponent<UiBob>().Spin = 6f;
-            winTitle = UiKit.Txt(wp.transform, "КОРОНА ТВОЯ!", 70, UiKit.PinkLight, TextAnchor.MiddleCenter, new Vector2(0.5f, 1), new Vector2(0, -290), new Vector2(800, 90));
+            winTitle = UiKit.Txt(wp.transform, "THE CROWN IS YOURS!", 70, UiKit.PinkLight, TextAnchor.MiddleCenter, new Vector2(0.5f, 1), new Vector2(0, -290), new Vector2(800, 90));
             winTime = UiKit.Txt(wp.transform, "", 32, Color.white, TextAnchor.MiddleCenter, new Vector2(0.5f, 1), new Vector2(0, -380), new Vector2(760, 90), false);
-            UiKit.Btn(wp.transform, "ЕЩЁ РАЗ", "restart", new Vector2(0.5f, 0), new Vector2(0, 180), new Vector2(520, 104), Restart, "btn_primary");
-            UiKit.Btn(wp.transform, "В МЕНЮ", "home", new Vector2(0.5f, 0), new Vector2(0, 50), new Vector2(520, 104), ToMenu);
+            UiKit.Btn(wp.transform, "PLAY AGAIN", "restart", new Vector2(0.5f, 0), new Vector2(0, 180), new Vector2(520, 104), Restart, "btn_primary");
+            UiKit.Btn(wp.transform, "MAIN MENU", "home", new Vector2(0.5f, 0), new Vector2(0, 50), new Vector2(520, 104), ToMenu);
 
             HideAll();
         }
@@ -225,7 +225,7 @@ namespace Sewer
         {
             introName.text = d.Name.ToUpper();
             introName.color = Color.Lerp(d.Hair, Color.white, 0.3f);
-            introAbility.text = "Способность: " + d.AbilityName;
+            introAbility.text = "Ability: " + d.AbilityName;
             introDesc.text = d.Description;
             introIcon.sprite = UiKit.Spr(d.Ability switch { Ability.Dash => "icon_dash", Ability.Invisibility => "icon_ghost", Ability.Slam => "icon_slam", _ => "icon_flash" });
         }
@@ -272,7 +272,7 @@ namespace Sewer
         {
             State = UiState.Won; Time.timeScale = 1;
             HideAll(); overlayRoot.gameObject.SetActive(true); winRoot.gameObject.SetActive(true);
-            winTime.text = $"{who} добрался до дна за <color=#3EF4FF>{Mathf.FloorToInt(time / 60)}:{Mathf.FloorToInt(time % 60):00}</color>";
+            winTime.text = $"{who} reached the bottom in <color=#3EF4FF>{Mathf.FloorToInt(time / 60)}:{Mathf.FloorToInt(time % 60):00}</color>";
             SetCursor(true);
         }
 

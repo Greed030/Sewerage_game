@@ -29,7 +29,7 @@ namespace Sewer
 
         ThirdPersonCamera cam;
 
-        static readonly string[] BossNames = { "Жирный Слизень", "Крысиный Барон", "Трубный Червь", "Мать Плесени", "Ржавый Краб", "Канальный Тролль" };
+        static readonly string[] BossNames = { "Fat Slug", "Rat Baron", "Pipe Worm", "Mold Mother", "Rusty Crab", "Canal Troll" };
         static readonly string[] BossColors = { "#7FA33A", "#8A6A5A", "#B5566E", "#5E8C7A", "#B8642F", "#5B6FA8" };
 
         void Awake()
@@ -111,7 +111,7 @@ namespace Sewer
                     boss.OnDefeated = () =>
                     {
                         if (gate) gate.Open();
-                        Hud.Message("Люк открыт — прыгай вниз!");
+                        Hud.Message("Hatch open — jump down!");
                     };
                 }
                 else
@@ -120,13 +120,13 @@ namespace Sewer
                     boss.OnDefeated = () =>
                     {
                         chest.Locked = false;
-                        Hud.Message("Сундук открыт — забери награду");
+                        Hud.Message("Chest unlocked — grab your reward");
                     };
                 }
             }
             // final boss guards the crown
-            var king = Boss.Spawn(Level.Arena, "Король Канализации", 700, 2.8f, Mat.Hex("#6A3FA0"), mobs);
-            king.OnDefeated = () => Hud.Message("Корона свободна!");
+            var king = Boss.Spawn(Level.Arena, "Sewer King", 700, 2.8f, Mat.Hex("#6A3FA0"), mobs);
+            king.OnDefeated = () => Hud.Message("The crown is free!");
             Crown.Create(Level.CrownPos);
 
             ToonFx.Setup(gameObject);
@@ -142,7 +142,7 @@ namespace Sewer
         public void BeginPlay()
         {
             StartTime = Time.time; Started = true;
-            Hud.Message($"Ты — {Player.Def.Name}. Способность: {Player.Def.AbilityName}. Спустись на дно и забери корону!", 5f);
+            Hud.Message($"You are {Player.Def.Name}. Ability: {Player.Def.AbilityName}. Get to the bottom and grab the crown!", 5f);
         }
 
         Coroutine hitStop;

@@ -41,7 +41,7 @@ namespace Sewer
             if (p == null) return;
             if (Locked)
             {
-                Hud.Message("Сундук заперт — победи стража комнаты");
+                Hud.Message("The chest is locked — defeat the room guard");
                 return;
             }
             taken = true;

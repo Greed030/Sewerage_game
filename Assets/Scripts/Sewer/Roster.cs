@@ -24,13 +24,13 @@ namespace Sewer
     {
         public static readonly CharacterDef[] All =
         {
-            new CharacterDef("Шип", "Рывок", "Резкий рывок вперёд, пробивает и ранит врагов",
+            new CharacterDef("Spike", "Dash", "A sharp dash forward that rams and hurts enemies",
                 Ability.Dash, 4f, 100, 6.5f, "#6E8A2B", "#E8681C"),
-            new CharacterDef("Тень", "Невидимость", "5 секунд монстры тебя не видят",
+            new CharacterDef("Shade", "Invisibility", "Monsters can't see you for 5 seconds",
                 Ability.Invisibility, 14f, 90, 7.0f, "#6B45C9", "#3B3A4A"),
-            new CharacterDef("Бульдозер", "Удар об землю", "Урон и отбрасывание всех вокруг",
+            new CharacterDef("Bulldozer", "Ground Slam", "Damages and knocks back everyone around",
                 Ability.Slam, 8f, 135, 5.8f, "#C9372C", "#2F6FD6"),
-            new CharacterDef("Искра", "Вспышка", "Оглушает всех монстров рядом на 3 секунды",
+            new CharacterDef("Spark", "Flash", "Stuns all nearby monsters for 3 seconds",
                 Ability.Flash, 10f, 100, 6.2f, "#F2C230", "#1FA58A"),
         };
 

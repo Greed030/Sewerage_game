@@ -291,7 +291,7 @@ namespace Sewer
 
         bool BuildModel(float s, Color color)
         {
-            bool king = Title.Contains("Король");
+            bool king = Title.Contains("King");
             string name = king ? "Boss_RatKing" : (modelIdx++ % 2 == 0 ? "Boss_Blob" : "Boss_Gator");
             visual = new GameObject("Visual").transform;
             visual.SetParent(transform, false);
@@ -364,7 +364,7 @@ namespace Sewer
             if (inRoom && !Awake_)
             {
                 Awake_ = true;
-                Hud.Message($"{Title} проснулся!");
+                Hud.Message($"{Title} woke up!");
                 SewerGame.Instance.ActiveBoss = this;
             }
             Vector3 horiz = Vector3.zero;
@@ -460,7 +460,7 @@ namespace Sewer
 
         void Defeated()
         {
-            Hud.Message($"{Title} повержен!");
+            Hud.Message($"{Title} defeated!");
             if (SewerGame.Instance.ActiveBoss == this) SewerGame.Instance.ActiveBoss = null;
             OnDefeated?.Invoke();
             StopAllCoroutines();
